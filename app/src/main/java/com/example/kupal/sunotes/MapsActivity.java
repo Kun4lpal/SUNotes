@@ -49,6 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    //<---------------------------private data members---------------------------------->
+
     private GoogleMap mMap;
     private ArrayList<HashMap<String, LatLng>> busLocations;
 
@@ -67,6 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView ShowDistanceDuration;
     private HashMap locationMap;
     private String message;
+
+    //<---------------------------on Create method---------------------------------->
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+    //<---------------------------help method---------------------------------->
 
     private boolean CheckGooglePlayServices() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
@@ -151,6 +157,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         return markerOptions;
     }
+
+    //<---------------------------assigning all bus stop locations---------------------------------->
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -246,6 +254,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    //<---------------------------calling the retrofit library---------------------------------->
+
     private void build_retrofit_and_get_response(String type) {
         String url = "https://maps.googleapis.com/maps/";
         Retrofit retrofit = new Retrofit.Builder()
@@ -295,6 +305,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    //<---------------------------helper method---------------------------------->
+
     private List<LatLng> decodePoly(String encoded) {
         List<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();
@@ -328,6 +340,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return poly;
     }
 
+    //<---------------------------helper method---------------------------------->
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -336,6 +350,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         mGoogleApiClient.connect();
     }
+
+    //<---------------------------helper method---------------------------------->
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -349,6 +365,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
+
+
+    //<---------------------------helper method---------------------------------->
 
     private String getUrl(double latitude, double longitude, String nearbyPlace) {
 
@@ -366,6 +385,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionSuspended(int i) {
 
     }
+
+    //<---------------------------helper method---------------------------------->
 
     @Override
     public void onLocationChanged(Location location) {
@@ -405,6 +426,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+    //<---------------------------helper method---------------------------------->
+
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -435,6 +458,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return true;
         }
     }
+
+    //<---------------------------helper method---------------------------------->
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

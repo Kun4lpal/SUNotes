@@ -128,6 +128,9 @@ public class CourseOne extends Fragment {
                 final String username = sharedPreferences.getString("name","");
                 userdb.child("title").setValue("Posted by: " + username);
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+
+
                 Query q= userRef.orderByKey().equalTo(userid);
                 q.addValueEventListener(new ValueEventListener() {
                     int valuse = 0;
